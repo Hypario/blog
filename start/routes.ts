@@ -23,3 +23,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
+
+// connect a user
+Route.get('login', 'LoginController.index')
+Route.post('login', 'LoginController.login')
