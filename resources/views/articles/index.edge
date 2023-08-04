@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Articles</title>
+</head>
+<body>
+    <section>
+        @each(article in articles)
+        <article>
+            <a href="{{ route('ArticlesController.show', { id: article.id }) }}">
+                <h2>
+                    {{ article.title }}
+                </h2>
+            </a>
+            <p>
+                {{ excerpt(article.content, 100)}}
+            </p>
+        </article>
+        @endeach
+    </section>
+
+    @each(anchor in articles.getUrlsForRange(1, articles.lastPage))
+    <a href="{{ anchor.url }}">
+        {{ anchor.page }}
+    </a>
+    @endeach
+</body>
+</html>

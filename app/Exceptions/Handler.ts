@@ -17,6 +17,10 @@ import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
+
+ // TODO : add a real 404 page with the same design as the blog
+ // protected disableStatusPagesInDevelopment: boolean = false;
+
   protected statusPages = {
     '403': 'errors/unauthorized',
     '404': 'errors/not-found',
