@@ -1,0 +1,23 @@
+@layout('layouts/master')
+
+@section('body')
+<form action="{{ route('articles.store') }}" method="POST">
+    <div>
+        <label for="title">Article Title</label>
+        <input type="text" name="title" id="title" value="{{ flashMessages.get('title', '') }}">
+        @if(flashMessages.has('errors.title'))
+        <div>{{ flashMessages.get('errors.title') }}</div>
+        @endif
+    </div>
+
+    <div>
+        <label for="content">Article content</label>
+        <textarea name="content" id="content" cols="30" rows="10" value="{{ flashMessages.get('content', '') }}"></textarea>
+        @if(flashMessages.has('errors.content'))
+        <div>{{ flashMessages.get('errors.content') }}</div>
+        @endif
+    </div>
+
+    <button type="submit">Post</button>
+</form>
+@end

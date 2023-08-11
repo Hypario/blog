@@ -10,7 +10,7 @@
     <form action="" method="POST">
         <div>
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" value="{{ flashMessages.get('username') ?? '' }}">
+            <input type="text" name="username" id="username" value="{{ flashMessages.get('username', '')}}">
             @if(flashMessages.has('errors.username'))
             <div>{{ flashMessages.get('errors.username') }}</div>
             @endif

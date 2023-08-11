@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Article from 'App/Models/Article'
+import ArticleValidator from 'App/Validators/ArticleValidator'
 
 export default class ArticlesController {
   public async index({request, view}: HttpContextContract) {
@@ -13,9 +14,20 @@ export default class ArticlesController {
     })
   }
 
-  public async create({}: HttpContextContract) {}
+  public async create({view}: HttpContextContract) {
+    return view.render('articles/create')
+  }
 
-  public async store({}: HttpContextContract) {}
+  public async store({auth, request, response}: HttpContextContract) {
+    const { user } = auth
+    const { title, content } = await request.validate(ArticleValidator)
+
+    const article = await Article.create({
+      title, content, ownerId: user!.id
+    })
+    
+    return response.redirect().toRoute('articles.show', [article.id])
+  }
 
   public async show({request, view}: HttpContextContract) {
     const id = request.param('id')
@@ -28,9 +40,33 @@ export default class ArticlesController {
     })
   }
 
-  public async edit({}: HttpContextContract) {}
+  public async edit({view, params, auth}: HttpContextContract) {
+    const { id } = params
 
-  public async update({}: HttpContextContract) {}
+    // exception is handled by the framework
+    const article = await Article.findOrFail(id)
+
+    console.log(article);
+    console.log(auth.isAuthenticated);
+
+    return view.render('articles/edit', { article })
+  }
+
+  public async update({params, request, response}: HttpContextContract) {
+    const { id } = params
+
+    // exception is handled by the framework
+    const article = await Article.findOrFail(id)
+
+    const { title, content } = await request.validate(ArticleValidator)
+
+    article.title = title
+    article.content = content
+
+    await article.save()
+
+    return response.redirect().toRoute('articles.show', [article.id])
+  }
 
   public async destroy({}: HttpContextContract) {}
 }

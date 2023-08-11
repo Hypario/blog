@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ article.title }}</title>
-</head>
-<body>
-    <a href="{{ route('ArticlesController.index') }}">Voir les articles</a>
+@layout('layouts/master')
 
-    <section>
-        <h1>{{ article.title }}</h1>
-        <p>{{ article.content }}</p>
-        <div>par <strong>{{ article.owner.username }}</strong> le {{ article.createdAt.toLocaleString({locale: 'fr-FR'}) }}, mis à jour le {{ article.updatedAt.toLocaleString({locale: 'fr-FR'}) }}</div>
-    </section>
-</body>
-</html>
+@section('body')
+<a href="{{ route('ArticlesController.index') }}">See articles</a>
+
+@if(auth.isLoggedIn)
+<a href="{{ route('articles.edit', {id: article.id}) }}">Edit an article</a>
+@endif
+
+<section>
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.content }}</p>
+    <div>by <strong>{{ article.owner.username }}</strong> created at {{ article.createdAt.toLocaleString({locale: 'fr-FR'}) }}, updated on {{ article.updatedAt.toLocaleString({locale: 'fr-FR'}) }}</div>
+</section>
+@end

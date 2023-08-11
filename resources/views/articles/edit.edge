@@ -1,0 +1,25 @@
+@layout('layouts/master')
+
+@section('body')
+<form action="{{ 
+    route('articles.update', {id: article.id}, { qs: { _method: 'PUT' } }) 
+}}" method="POST">
+    <div>
+        <label for="title">Article Title</label>
+        <input type="text" name="title" id="title" value="{{ flashMessages.get('title', article.title) }}">
+        @if(flashMessages.has('errors.title'))
+        <div>{{ flashMessages.get('errors.title') }}</div>
+        @endif
+    </div>
+
+    <div>
+        <label for="content">Article content</label>
+        <textarea name="content" id="content" cols="30" rows="10">{{ flashMessages.get('content', article.content) }}</textarea>
+        @if(flashMessages.has('errors.content'))
+        <div>{{ flashMessages.get('errors.content') }}</div>
+        @endif
+    </div>
+
+    <button type="submit">Post</button>
+</form>
+@end

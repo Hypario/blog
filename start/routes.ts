@@ -20,12 +20,17 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
+Route.get('/', async ({ response }) => {
+  response.redirect('/articles')
 })
 
 // connect a user
 Route.get('login', 'LoginController.index')
 Route.post('login', 'LoginController.login')
 
-Route.resource('articles', 'ArticlesController')
+Route.resource('articles', 'ArticlesController').middleware({
+  create: ['auth'],
+  store: ['auth'],
+  edit: ['auth'],
+  update: ['auth'],
+})
