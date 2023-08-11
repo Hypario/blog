@@ -2,6 +2,7 @@
 
 @section('body')
 <form action="{{ route('articles.store') }}" method="POST">
+    {{ csrfField() }}
     <div>
         <label for="title">Article Title</label>
         <input type="text" name="title" id="title" value="{{ flashMessages.get('title', '') }}">

@@ -4,6 +4,7 @@
 <form action="{{ 
     route('articles.update', {id: article.id}, { qs: { _method: 'PUT' } }) 
 }}" method="POST">
+    {{ csrfField() }}
     <div>
         <label for="title">Article Title</label>
         <input type="text" name="title" id="title" value="{{ flashMessages.get('title', article.title) }}">
