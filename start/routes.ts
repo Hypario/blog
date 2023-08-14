@@ -20,9 +20,7 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async ({ response }) => {
-  response.redirect('/articles')
-})
+Route.get('/', async ({ view }) => view.render("welcome"))
 
 // connect a user
 Route.get('login', 'LoginController.index')
