@@ -2,13 +2,9 @@
 
 @section('body')
 
-@if(auth.isLoggedIn)
-  <a href="{{ route('ArticlesController.create') }}">Créer un article</a>
-@endif
-
 <section>
     @each(article in articles)
-    <article>
+    <article class="text-white">
         <a href="{{ route('ArticlesController.show', { id: article.id }) }}">
             <h2>
                 {{ article.title }}
@@ -22,8 +18,9 @@
 </section>
 
 @each(anchor in articles.getUrlsForRange(1, articles.lastPage))
-<a href="{{ anchor.url }}">
+<a href="{{ anchor.url }}" class="text-white">
     {{ anchor.page }}
 </a>
 @endeach
+
 @end
